@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
     <route id="fullcalendar_loader" path="/fc-load-events">
-        <default key="_controller">ADesignsCalendarBundle:Calendar:loadCalendar</default>
+        <default key="_controller">ADesigns\CalendarBundle\Controller\CalendarController::loadCalendarAction</default>
         <option key="expose">true</option>
     </route>
 </routes>
