@@ -2,12 +2,12 @@
 
 namespace ADesigns\CalendarBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 use ADesigns\CalendarBundle\Event\CalendarEvent;
 
-class CalendarController extends Controller
+class CalendarController
 {
     /**
      * Dispatch a CalendarEvent and return a JSON Response of any events returned.
@@ -15,7 +15,7 @@ class CalendarController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function loadCalendarAction(Request $request)
+    public function loadCalendarAction(Request $request, EventDispatcherInterface $dispatcher)
     {
         $startDatetime = new \DateTime();
         $startDatetime->setTimestamp($request->get('start'));
@@ -23,7 +23,7 @@ class CalendarController extends Controller
         $endDatetime = new \DateTime();
         $endDatetime->setTimestamp($request->get('end'));
         
-        $events = $this->container->get('event_dispatcher')->dispatch(CalendarEvent::CONFIGURE, new CalendarEvent($startDatetime, $endDatetime, $request))->getEvents();
+        $events = $dispatcher->dispatch(new CalendarEvent($startDatetime, $endDatetime, $request), CalendarEvent::CONFIGURE)->getEvents();
         
         $response = new \Symfony\Component\HttpFoundation\Response();
         $response->headers->set('Content-Type', 'application/json');
