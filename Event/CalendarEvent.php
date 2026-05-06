@@ -2,7 +2,7 @@
 
 namespace ADesigns\CalendarBundle\Event;
 
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\Request;
 
 use ADesigns\CalendarBundle\Entity\EventEntity;
